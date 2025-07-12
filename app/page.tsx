@@ -74,11 +74,11 @@ export default function Home() {
       loading: "Getting you on the waitlist... 🚀",
       success: (data) => {
         setShowQuestionnaire(true);
-        return "Great! Now let's learn more about you 🎉";
+        return "Great! Now let&apos;s learn more about you 🎉";
       },
       error: (error) => {
         if (error === "Rate limited") {
-          return "You're doing that too much. Please try again later";
+          return "You&apos;re doing that too much. Please try again later";
         } else if (error === "Notion insertion failed") {
           return "Failed to save your details. Please try again 😢.";
         }
@@ -110,7 +110,7 @@ export default function Home() {
       });
 
       if (response.ok) {
-        toast.success("Thank you! We'll be in touch soon 🚀");
+        toast.success("Thank you! We&apos;ll be in touch soon 🚀");
       }
     } catch (error) {
       console.error("Error saving questionnaire:", error);
@@ -126,10 +126,10 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             className="mb-8 text-center">
             <h2 className="mb-2 text-3xl font-bold text-foreground">
-              Tell us what you're building and where you're at
+              Tell us what you&apos;re building and where you&apos;re at
             </h2>
             <p className="text-lg text-muted-foreground">
-              We'll tailor App Spark to you.
+              We&apos;ll tailor App Spark to you.
             </p>
           </motion.div>
 

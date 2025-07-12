@@ -19,7 +19,7 @@ export default function Features() {
       animate="visible">
       <motion.div variants={itemVariants}>
         <h2 className="mb-8 text-center text-2xl font-bold text-foreground sm:text-3xl">
-          ✅ You'll Learn How To:
+          ✅ You&apos;ll Learn How To:
         </h2>
       </motion.div>
 

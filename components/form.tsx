@@ -60,7 +60,7 @@ export default function Form({
       <motion.div
         variants={itemVariants}
         className="mt-2 text-center text-sm text-muted-foreground">
-        <p>We'll never spam you. Unsubscribe anytime.</p>
+        <p>We&apos;ll never spam you. Unsubscribe anytime.</p>
       </motion.div>
     </motion.div>
   );
