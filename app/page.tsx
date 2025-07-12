@@ -1,13 +1,13 @@
 "use client";
 
-import { toast } from "sonner";
-import { useState } from "react";
 import CTA from "@/components/cta";
+import Footer from "@/components/footer";
 import Form from "@/components/form";
+import Header from "@/components/header";
 import Logos from "@/components/logos";
 import Particles from "@/components/ui/particles";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+import { useState } from "react";
+import { toast } from "sonner";
 
 export default function Home() {
   const [name, setName] = useState<string>("");
@@ -43,23 +43,23 @@ export default function Home() {
     const promise = new Promise(async (resolve, reject) => {
       try {
         // First, attempt to send the email
-        const mailResponse = await fetch("/api/mail", {
-          cache: "no-store",
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ firstname: name, email }),
-        });
+        // const mailResponse = await fetch("/api/mail", {
+        //   cache: "no-store",
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify({ firstname: name, email }),
+        // });
 
-        if (!mailResponse.ok) {
-          if (mailResponse.status === 429) {
-            reject("Rate limited");
-          } else {
-            reject("Email sending failed");
-          }
-          return; // Exit the promise early if mail sending fails
-        }
+        // if (!mailResponse.ok) {
+        //   if (mailResponse.status === 429) {
+        //     reject("Rate limited");
+        //   } else {
+        //     reject("Email sending failed");
+        //   }
+        //   return; // Exit the promise early if mail sending fails
+        // }
 
         // If email sending is successful, proceed to insert into Notion
         const notionResponse = await fetch("/api/notion", {

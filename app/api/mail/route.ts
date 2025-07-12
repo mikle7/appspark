@@ -2,10 +2,10 @@ import { render } from "@react-email/render";
 
 import WelcomeTemplate from "../../../emails";
 
-import { Resend } from "resend";
-import { NextRequest, NextResponse } from "next/server";
-import { Redis } from "@upstash/redis";
 import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
+import { NextRequest, NextResponse } from "next/server";
+import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -21,6 +21,8 @@ const ratelimit = new Ratelimit({
 });
 
 export async function POST(request: NextRequest, response: NextResponse) {
+  console.log("Not implemented yet");
+  return;
   const ip = request.ip ?? "127.0.0.1";
 
   const result = await ratelimit.limit(ip);
@@ -43,7 +45,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
     to: [email],
     subject: "Thankyou for wailisting the Next.js + Notion CMS template!",
     reply_to: "lakshb.work@gmail.com",
-    html:  await render(WelcomeTemplate({ userFirstname: firstname })),
+    html: await render(WelcomeTemplate({ userFirstname: firstname })),
   });
 
   // const { data, error } = { data: true, error: null }
