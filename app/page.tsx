@@ -1,11 +1,14 @@
 "use client";
 
-import CTA from "@/components/cta";
+import Features from "@/components/features";
 import Footer from "@/components/footer";
 import Form from "@/components/form";
-import Header from "@/components/header";
-import Logos from "@/components/logos";
+import Hero from "@/components/hero";
+import Questionnaire from "@/components/questionnaire";
+import { EnhancedButton } from "@/components/ui/enhanced-btn";
 import Particles from "@/components/ui/particles";
+import { motion } from "framer-motion";
+import { Sparkles } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -13,6 +16,8 @@ export default function Home() {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [showQuestionnaire, setShowQuestionnaire] = useState<boolean>(false);
+  const [questionnaireData, setQuestionnaireData] = useState<any>(null);
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -27,7 +32,7 @@ export default function Home() {
     return emailRegex.test(email);
   };
 
-  const handleSubmit = async () => {
+  const handleInitialSubmit = async () => {
     if (!name || !email) {
       toast.error("Please fill in all fields 😠");
       return;
@@ -42,25 +47,6 @@ export default function Home() {
 
     const promise = new Promise(async (resolve, reject) => {
       try {
-        // First, attempt to send the email
-        // const mailResponse = await fetch("/api/mail", {
-        //   cache: "no-store",
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify({ firstname: name, email }),
-        // });
-
-        // if (!mailResponse.ok) {
-        //   if (mailResponse.status === 429) {
-        //     reject("Rate limited");
-        //   } else {
-        //     reject("Email sending failed");
-        //   }
-        //   return; // Exit the promise early if mail sending fails
-        // }
-
         // If email sending is successful, proceed to insert into Notion
         const notionResponse = await fetch("/api/notion", {
           method: "POST",
@@ -87,15 +73,12 @@ export default function Home() {
     toast.promise(promise, {
       loading: "Getting you on the waitlist... 🚀",
       success: (data) => {
-        setName("");
-        setEmail("");
-        return "Thank you for joining the waitlist 🎉";
+        setShowQuestionnaire(true);
+        return "Great! Now let's learn more about you 🎉";
       },
       error: (error) => {
         if (error === "Rate limited") {
           return "You're doing that too much. Please try again later";
-        } else if (error === "Email sending failed") {
-          return "Failed to send email. Please try again 😢.";
         } else if (error === "Notion insertion failed") {
           return "Failed to save your details. Please try again 😢.";
         }
@@ -108,32 +91,116 @@ export default function Home() {
     });
   };
 
+  const handleQuestionnaireComplete = async (data: any) => {
+    setQuestionnaireData(data);
+
+    // Save questionnaire data to Notion
+    try {
+      const response = await fetch("/api/notion", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          questionnaire: data,
+          isUpdate: true,
+        }),
+      });
+
+      if (response.ok) {
+        toast.success("Thank you! We'll be in touch soon 🚀");
+      }
+    } catch (error) {
+      console.error("Error saving questionnaire:", error);
+    }
+  };
+
+  if (showQuestionnaire) {
+    return (
+      <main className="flex min-h-screen flex-col items-center overflow-x-clip pt-12 md:pt-24">
+        <section className="flex w-full max-w-4xl flex-col items-center px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-8 text-center">
+            <h2 className="mb-2 text-3xl font-bold text-foreground">
+              Tell us what you're building and where you're at
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              We'll tailor App Spark to you.
+            </p>
+          </motion.div>
+
+          <Questionnaire onComplete={handleQuestionnaireComplete} />
+        </section>
+
+        <Footer />
+
+        <Particles
+          quantityDesktop={200}
+          quantityMobile={50}
+          ease={80}
+          color={"#ff6b35"}
+          refresh
+        />
+      </main>
+    );
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center overflow-x-clip pt-12 md:pt-24">
-      <section className="flex flex-col items-center px-4 sm:px-6 lg:px-8">
-        <Header />
+      <section className="flex flex-col items-center space-y-16 px-4 sm:px-6 lg:px-8">
+        <Hero />
 
-        <CTA />
+        <Features />
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="text-center">
+          <h2 className="mb-4 text-3xl font-bold text-foreground sm:text-4xl">
+            🚀 Get Early Access — Join the Waitlist
+          </h2>
+          <p className="mb-8 max-w-2xl text-lg text-muted-foreground">
+            Be the first to know when App Spark launches. Get exclusive early
+            access and special pricing.
+          </p>
+        </motion.div>
 
         <Form
           name={name}
           email={email}
           handleNameChange={handleNameChange}
           handleEmailChange={handleEmailChange}
-          handleSubmit={handleSubmit}
+          handleSubmit={handleInitialSubmit}
           loading={loading}
         />
 
-        <Logos />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="text-center">
+          <EnhancedButton
+            variant="outline"
+            onClick={() => setShowQuestionnaire(true)}
+            className="border-primary text-primary hover:bg-primary/10">
+            <Sparkles className="mr-2 h-4 w-4" />
+            Skip to Questions
+          </EnhancedButton>
+        </motion.div>
       </section>
 
       <Footer />
 
       <Particles
-        quantityDesktop={350}
-        quantityMobile={100}
+        quantityDesktop={300}
+        quantityMobile={80}
         ease={80}
-        color={"#F7FF9B"}
+        color={"#ff6b35"}
         refresh
       />
     </main>

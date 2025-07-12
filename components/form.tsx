@@ -1,11 +1,9 @@
-import Link from "next/link";
-import { ChangeEvent } from "react";
-import { motion } from "framer-motion";
-import { FaGithub, FaXTwitter } from "react-icons/fa6";
-import { Input } from "@/components/ui/input";
-import { FaArrowRightLong } from "react-icons/fa6";
 import { EnhancedButton } from "@/components/ui/enhanced-btn";
+import { Input } from "@/components/ui/input";
 import { containerVariants, itemVariants } from "@/lib/animation-variants";
+import { motion } from "framer-motion";
+import { ChangeEvent } from "react";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 interface FormProps {
   name: string;
@@ -26,7 +24,7 @@ export default function Form({
 }: FormProps) {
   return (
     <motion.div
-      className="mt-6 flex w-full max-w-[24rem] flex-col gap-2"
+      className="mt-6 flex w-full max-w-[24rem] flex-col gap-3"
       variants={containerVariants}
       initial="hidden"
       animate="visible">
@@ -36,6 +34,7 @@ export default function Form({
           placeholder="Your Name"
           value={name}
           onChange={handleNameChange}
+          className="h-12 text-base"
         />
       </motion.div>
       <motion.div variants={itemVariants}>
@@ -44,6 +43,7 @@ export default function Form({
           placeholder="Your Email Address"
           value={email}
           onChange={handleEmailChange}
+          className="h-12 text-base"
         />
       </motion.div>
       <motion.div variants={itemVariants}>
@@ -52,28 +52,15 @@ export default function Form({
           Icon={FaArrowRightLong}
           onClick={handleSubmit}
           iconPlacement="right"
-          className="mt-2 w-full"
+          className="mt-2 h-12 w-full bg-primary text-base font-semibold text-primary-foreground hover:bg-primary/90"
           disabled={loading}>
-          {loading ? "Loading..." : "Join Waitlist!"}
+          {loading ? "Joining..." : "Join the Waitlist"}
         </EnhancedButton>
       </motion.div>
       <motion.div
         variants={itemVariants}
-        className="mt-4 flex w-full items-center justify-center gap-1 text-muted-foreground">
-        <p>For any queries, reach out at </p>
-        <Link
-          href="https://x.com/blakssh"
-          rel="noopener noreferrer"
-          target="_blank">
-          <FaXTwitter className="h-4 w-4 transition-all duration-200 ease-linear hover:text-yellow-200" />
-        </Link>
-        or
-        <Link
-          href="https://github.com/lakshaybhushan"
-          rel="noopener noreferrer"
-          target="_blank">
-          <FaGithub className="ml-0.5 h-5 w-5 transition-all duration-200 ease-linear hover:text-yellow-200" />
-        </Link>
+        className="mt-2 text-center text-sm text-muted-foreground">
+        <p>We'll never spam you. Unsubscribe anytime.</p>
       </motion.div>
     </motion.div>
   );
