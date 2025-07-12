@@ -10,6 +10,7 @@ import Particles from "@/components/ui/particles";
 import { QuestionnaireData } from "@/types/questionnaire";
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -20,6 +21,7 @@ export default function Home() {
   const [showQuestionnaire, setShowQuestionnaire] = useState<boolean>(false);
   const [questionnaireData, setQuestionnaireData] =
     useState<QuestionnaireData | null>(null);
+  const router = useRouter();
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -126,7 +128,13 @@ export default function Home() {
 
     toast.promise(promise, {
       loading: "Saving your responses... 💾",
-      success: "Thank you! We'll be in touch soon 🚀",
+      success: () => {
+        // Redirect to success page after a short delay
+        setTimeout(() => {
+          router.push("/success");
+        }, 1500);
+        return "Thank you! We'll be in touch soon 🚀";
+      },
       error: (error) => {
         console.error("Error saving questionnaire:", error);
         return "Oops! Something went wrong. Please try again 😢";
