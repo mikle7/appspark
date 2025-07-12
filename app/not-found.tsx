@@ -32,8 +32,8 @@ export default function NotFound() {
         {/* Subheading */}
         <motion.div variants={itemVariants} className="mb-8">
           <p className="text-lg text-muted-foreground">
-            Oops! The page you're looking for doesn't exist. Let's get you back
-            on track.
+            Oops! The page you&apos;re looking for doesn&apos;t exist.
+            Let&apos;s get you back on track.
           </p>
         </motion.div>
 

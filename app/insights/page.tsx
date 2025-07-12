@@ -353,7 +353,7 @@ export default function InsightsPage() {
               <CardHeader>
                 <CardTitle>Previous Experience</CardTitle>
                 <CardDescription>
-                  Users' app building background
+                  Users&apos; app building background
                 </CardDescription>
               </CardHeader>
               <CardContent>

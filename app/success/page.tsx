@@ -25,15 +25,15 @@ export default function SuccessPage() {
         {/* Main Heading */}
         <motion.div variants={itemVariants} className="mb-6">
           <h1 className="text-4xl font-bold text-foreground sm:text-5xl lg:text-6xl">
-            You're All Set! 🎉
+            You&apos;re All Set! 🎉
           </h1>
         </motion.div>
 
         {/* Subheading */}
         <motion.div variants={itemVariants} className="mb-8">
           <p className="text-xl text-muted-foreground sm:text-2xl">
-            Welcome to the App Spark community! We're excited to help you build
-            your dream app.
+            Welcome to the App Spark community! We&apos;re excited to help you
+            build your dream app.
           </p>
         </motion.div>
 
@@ -50,11 +50,11 @@ export default function SuccessPage() {
               </div>
               <div>
                 <h3 className="mb-2 font-semibold text-card-foreground">
-                  We'll be in touch soon
+                  We&apos;ll be in touch soon
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  You'll receive updates about App Spark's launch and exclusive
-                  early access opportunities.
+                  You&apos;ll receive updates about App Spark&apos;s launch and
+                  exclusive early access opportunities.
                 </p>
               </div>
             </div>
@@ -83,7 +83,7 @@ export default function SuccessPage() {
                   Beta testing opportunity
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  If you opted in, we'll reach out about early access and
+                  If you opted in, we&apos;ll reach out about early access and
                   feedback opportunities.
                 </p>
               </div>
@@ -98,7 +98,7 @@ export default function SuccessPage() {
                   Personalized content
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  Based on your responses, we'll tailor App Spark to your
+                  Based on your responses, we&apos;ll tailor App Spark to your
                   specific needs and goals.
                 </p>
               </div>
@@ -144,8 +144,8 @@ export default function SuccessPage() {
         {/* Footer Message */}
         <motion.div variants={itemVariants}>
           <p className="text-sm text-muted-foreground">
-            Thank you for joining the App Spark waitlist! We can't wait to help
-            you build something amazing. 🚀
+            Thank you for joining the App Spark waitlist! We can&apos;t wait to
+            help you build something amazing. 🚀
           </p>
         </motion.div>
       </motion.div>
