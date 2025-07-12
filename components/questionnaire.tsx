@@ -2,19 +2,10 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { QuestionnaireData } from "@/types/questionnaire";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
-
-interface QuestionnaireData {
-  interests: string[];
-  previousExperience: string;
-  skillLevel: string;
-  appType: string;
-  primaryGoal: string;
-  biggestChallenge: string;
-  betaTest: string;
-}
 
 interface QuestionnaireProps {
   onComplete: (data: QuestionnaireData) => void;
@@ -28,7 +19,7 @@ const questions = [
     type: "multiple",
     options: [
       "Learning how to build a real app from scratch",
-      "Using AI (like ChatGPT/Copilot) to help me code",
+      "Using AI (like ChatGPT and Copilot) to help me code",
       "Understanding just enough code to be dangerous",
       "Avoiding $30k–50k+ in development costs",
       "Building an MVP to test or launch my startup",
@@ -41,10 +32,10 @@ const questions = [
     title: "🛠️ Have you tried building an app before?",
     type: "single",
     options: [
-      "Yes, I paid a developer or agency",
-      "Yes, I tried a no-code tool like Bubble or Glide",
+      "Yes - I paid a developer or agency",
+      "Yes - I tried a no-code tool like Bubble or Glide",
       "I attempted to code but didn't get far",
-      "No, this is my first attempt",
+      "No - this is my first attempt",
     ],
   },
   {
@@ -53,7 +44,7 @@ const questions = [
     type: "single",
     options: [
       "Total beginner — I've never coded",
-      "I've tried some tutorials or used tools like Notion/Zapier",
+      "I've tried some tutorials or used tools like Notion and Zapier",
       "I know the basics but can't build alone",
       "I'm comfortable editing code but not building from scratch",
     ],
@@ -69,9 +60,9 @@ const questions = [
     title: "🎯 What's your primary goal right now?",
     type: "single",
     options: [
-      "Launch a side project/startup",
+      "Launch a side project or startup",
       "Learn to build apps so I can work faster",
-      "Build a tool to solve a personal/business problem",
+      "Build a tool to solve a personal or business problem",
       "Prove out a startup idea",
       "Change careers or level up professionally",
     ],
@@ -88,7 +79,7 @@ const questions = [
     title: "🧪 Want to beta test or chat with us?",
     type: "single",
     options: [
-      "Yes, I'd be open to a quick call or early test",
+      "Yes - I'd be open to a quick call or early test",
       "Not right now",
     ],
   },

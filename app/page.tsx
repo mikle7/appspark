@@ -7,6 +7,7 @@ import Hero from "@/components/hero";
 import Questionnaire from "@/components/questionnaire";
 import { EnhancedButton } from "@/components/ui/enhanced-btn";
 import Particles from "@/components/ui/particles";
+import { QuestionnaireData } from "@/types/questionnaire";
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
 import { useState } from "react";
@@ -17,7 +18,8 @@ export default function Home() {
   const [email, setEmail] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [showQuestionnaire, setShowQuestionnaire] = useState<boolean>(false);
-  const [questionnaireData, setQuestionnaireData] = useState<any>(null);
+  const [questionnaireData, setQuestionnaireData] =
+    useState<QuestionnaireData | null>(null);
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -74,11 +76,11 @@ export default function Home() {
       loading: "Getting you on the waitlist... 🚀",
       success: (data) => {
         setShowQuestionnaire(true);
-        return "Great! Now let&apos;s learn more about you 🎉";
+        return "Great! Now let's learn more about you 🎉";
       },
       error: (error) => {
         if (error === "Rate limited") {
-          return "You&apos;re doing that too much. Please try again later";
+          return "You're doing that too much. Please try again later";
         } else if (error === "Notion insertion failed") {
           return "Failed to save your details. Please try again 😢.";
         }
@@ -91,30 +93,45 @@ export default function Home() {
     });
   };
 
-  const handleQuestionnaireComplete = async (data: any) => {
+  const handleQuestionnaireComplete = async (data: QuestionnaireData) => {
     setQuestionnaireData(data);
 
-    // Save questionnaire data to Notion
-    try {
-      const response = await fetch("/api/notion", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          questionnaire: data,
-          isUpdate: true,
-        }),
-      });
+    // Save questionnaire data to Notion with loading state
+    const promise = new Promise(async (resolve, reject) => {
+      try {
+        const response = await fetch("/api/notion", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            questionnaire: data,
+            isUpdate: true,
+          }),
+        });
 
-      if (response.ok) {
-        toast.success("Thank you! We&apos;ll be in touch soon 🚀");
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          resolve(result);
+        } else {
+          reject(result.error || "Failed to save questionnaire");
+        }
+      } catch (error) {
+        reject(error);
       }
-    } catch (error) {
-      console.error("Error saving questionnaire:", error);
-    }
+    });
+
+    toast.promise(promise, {
+      loading: "Saving your responses... 💾",
+      success: "Thank you! We'll be in touch soon 🚀",
+      error: (error) => {
+        console.error("Error saving questionnaire:", error);
+        return "Oops! Something went wrong. Please try again 😢";
+      },
+    });
   };
 
   if (showQuestionnaire) {
