@@ -68,19 +68,20 @@ const questions = [
     ],
   },
   {
-    id: "biggestChallenge",
-    title: "🔥 What's the biggest thing holding you back?",
-    subtitle:
-      "e.g., 'I don't know where to start' or 'I don't understand how to connect everything'",
-    type: "text",
-  },
-  {
-    id: "betaTest",
-    title: "🧪 Want to beta test or chat with us?",
+    id: "industry",
+    title: "🏢 What industry or background best describes you?",
     type: "single",
     options: [
-      "Yes - I'd be open to a quick call or early test",
-      "Not right now",
+      "Business/Entrepreneurship",
+      "Marketing/Sales",
+      "Design/Creative",
+      "Product Management",
+      "Finance/Consulting",
+      "Education/Academia",
+      "Gaming/Entertainment",
+      "Ecommerce/Retail",
+      "Technology/Software",
+      "Other",
     ],
   },
 ];
