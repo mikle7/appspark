@@ -1,9 +1,27 @@
+import Form from "@/components/form";
 import AnimatedShinyText from "@/components/ui/shimmer-text";
 import TextBlur from "@/components/ui/text-blur";
 import { containerVariants, itemVariants } from "@/lib/animation-variants";
 import { motion } from "framer-motion";
+import { ChangeEvent } from "react";
 
-export default function Hero() {
+interface HeroProps {
+  name: string;
+  email: string;
+  handleNameChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleEmailChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: () => void;
+  loading: boolean;
+}
+
+export default function Hero({
+  name,
+  email,
+  handleNameChange,
+  handleEmailChange,
+  handleSubmit,
+  loading,
+}: HeroProps) {
   return (
     <motion.div
       className="flex w-full max-w-4xl flex-col gap-6 text-center"
@@ -41,6 +59,17 @@ export default function Hero() {
           className="mx-auto max-w-2xl text-base font-medium text-muted-foreground sm:text-lg"
           text="We'll teach you just enough code and how to use AI to get from idea → MVP → first customers."
           duration={1.8}
+        />
+      </motion.div>
+
+      <motion.div variants={itemVariants} className="mt-4 flex justify-center">
+        <Form
+          name={name}
+          email={email}
+          handleNameChange={handleNameChange}
+          handleEmailChange={handleEmailChange}
+          handleSubmit={handleSubmit}
+          loading={loading}
         />
       </motion.div>
     </motion.div>
