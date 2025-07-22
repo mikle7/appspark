@@ -1,15 +1,15 @@
-import "./globals.css";
-import type { Metadata } from "next";
-import { Figtree } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { Analytics } from "@vercel/analytics/react";
+import type { Metadata } from "next";
+import { Figtree } from "next/font/google";
+import "./globals.css";
 
 const FigtreeFont = Figtree({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Next.js + Notion — Waitlist Template",
+  title: "AppSpark",
   description:
-    "A simple Next.js waitlist template with Notion as CMS and Resend to send emails created with React Email and Upstash Redis for rate limiting. Deployed on Vercel.",
+    "App Spark is a course and toolkit for non-technical founders who want to turn ideas into real, working apps. Learn just enough code and how to use AI to build your MVP fast, without spending tens of thousands on developers.",
 };
 
 export default function RootLayout({
@@ -23,10 +23,7 @@ export default function RootLayout({
       <meta property="og:image:type" content="image/png" />
       <meta property="og:image:width" content="1280" />
       <meta property="og:image:height" content="832" />
-      <meta
-        property="og:site_name"
-        content="Next.js + Notion — Waitlist Template"
-      />
+      <meta property="og:site_name" content="AppSpark" />
       <meta
         property="og:url"
         content="https://nextjs-notion-waitlist.vercel.app/"

@@ -5,11 +5,9 @@ import Footer from "@/components/footer";
 import Form from "@/components/form";
 import Hero from "@/components/hero";
 import Questionnaire from "@/components/questionnaire";
-import { EnhancedButton } from "@/components/ui/enhanced-btn";
 import Particles from "@/components/ui/particles";
 import { QuestionnaireData } from "@/types/questionnaire";
 import { motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -203,20 +201,6 @@ export default function Home() {
           handleSubmit={handleInitialSubmit}
           loading={loading}
         />
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="text-center">
-          <EnhancedButton
-            variant="outline"
-            onClick={() => setShowQuestionnaire(true)}
-            className="border-primary text-primary hover:bg-primary/10">
-            <Sparkles className="mr-2 h-4 w-4" />
-            Skip to Questions
-          </EnhancedButton>
-        </motion.div>
       </section>
 
       <Footer />
