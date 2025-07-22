@@ -122,7 +122,7 @@ export default function SuccessPage() {
                 className="border-primary text-primary hover:bg-primary/10"
                 asChild>
                 <Link
-                  href="https://twitter.com/appspark"
+                  href="https://x.com/AppSparkAu"
                   target="_blank"
                   rel="noopener noreferrer">
                   Follow us on Twitter
